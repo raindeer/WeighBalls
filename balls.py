@@ -28,7 +28,7 @@ The inital knowledge is [12, 0, 0, 0].
 The goal of the search is to end up with N = 11 and 1 in one of the other
 positions of the knowledge vector for all possible outcomes of the 3 measurements.
 
-When NUM_BALLS = 12 it takes a few minutes for solution to be found.
+When NUM_BALLS = 12 it takes a few minutes for a solution to be found.
 
 """
 
