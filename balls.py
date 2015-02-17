@@ -101,7 +101,7 @@ def updateKnowledge(left, right, result, knowledge):
 
 def generateScaleSettings(knowledge):
   """ Generates all possible ball configurations given the knowledge we have.
-  Note: Not sure this actually gives all possible combinations in cases 
+  Note: Not sure this actually gives all possible combinations in all cases 
   but seems to give enough of the them at least...
   """
   
@@ -199,7 +199,7 @@ def measure(knowledge, m = 1):
       newKnowledge = updateKnowledge(left, right, scaleResult, knowledge)
       
       # Have we found a solution for this scale result?
-      if newKnowledge[N] == NUM_BALLS-1:
+      if newKnowledge[N] == NUM_BALLS-1 and newKnowledge[LH] == 0:
           solutionFound[i] = 1
           solutions[SCALE_RESULT_LABELS[scaleResult]] = "Result:" + str(list(newKnowledge))
       elif m != NUM_MEASUREMENTS:
