@@ -3,6 +3,33 @@
 Created on Mon Feb 16 18:25:28 2015
 
 @author: Erik Rehn
+
+Solves the following problem through a brute force search:
+
+"You're given 12 balls which all look the same. However, one of the balls 
+weights differently (either lighter or heavier). Your task is to identify 
+which ball is different and to tell whether it's heavier or lighter. 
+The only tool you've got is a balance scale, which you can use up to 3 times. 
+Only balls can be put on the scale cups."
+
+However, the script can be run with arbitrary number of balls and measurments.
+
+Knowledge is represented as a vector: [LH, L, H, N],
+ 
+where:
+
+- LH is the number of balls that could either are light or heavy.
+- L is the number of balls that could be light but not heavy.
+- H is the number of balls that could be heavy but not light.
+- N is the number of balls known to be normal.
+
+The inital knowledge is [12, 0, 0, 0].
+
+The goal of the search is to end up with N = 11 and 1 in one of the other
+positions of the knowledge vector for all possible outcomes of the 3 measurements.
+
+When NUM_BALLS = 12 it takes a few minutes for solution to be found.
+
 """
 
 import json
@@ -10,8 +37,8 @@ import itertools
 from collections import OrderedDict
 import numpy as np
 
-NUM_BALLS = 20
-NUM_MEASUREMENTS = 4
+NUM_BALLS = 12
+NUM_MEASUREMENTS = 3
 
 SCALE_LEFT = -1
 SCALE_RIGHT = 1
@@ -23,6 +50,9 @@ H = 2
 N = 3
 
 def updateKnowledge(left, right, result, knowledge):
+  """ Gives a new knowledge vector given what is in the left and right cups of
+  the scale and the result of the measurement.
+  """
   
   newKnowledge = np.copy(knowledge)
   
@@ -60,7 +90,7 @@ def updateKnowledge(left, right, result, knowledge):
       newKnowledge[H] += right[LH]
         
   else:
-    # If the scale is balanaced everything on the scale must be normal
+    # If the scale is balanced everything on the scale must be normal
     newKnowledge -= left
     newKnowledge -= right
     newKnowledge[N] += left.sum()
@@ -70,6 +100,10 @@ def updateKnowledge(left, right, result, knowledge):
 
 
 def generateScaleSettings(knowledge):
+  """ Generates all possible ball configurations given the knowledge we have.
+  Note: Not sure this actually gives all possible combinations in cases 
+  but seems to give enough of the them at least...
+  """
   
   if (knowledge.sum() != NUM_BALLS):
     print "Invalid knowledge state"
@@ -127,6 +161,9 @@ def generateScaleSettings(knowledge):
 
 
 def measure(knowledge, m = 1):
+  """ Recursivly searches for a NUM_MEASUREMENTS deep tree of measurements
+  where a solution is found at all the leaves.
+  """
   
   solutionFound = np.zeros(3, np.int8)
   
@@ -178,19 +215,21 @@ def measure(knowledge, m = 1):
                              (str(m),  solutions)])
     
   return 0, None
-    
-    
-print "Start ---"
-print "Number of balls:", NUM_BALLS
-print "Number of measurments:", NUM_MEASUREMENTS
-
-initialKnowledge = np.array([NUM_BALLS, 0, 0, 0], np.int8)
-solutionFound, solution = measure(initialKnowledge)
-
-if solutionFound == 1:
-  print "\nSolution:"
-  print json.dumps(solution, indent=2)
-else:
-  print "\nNo solution was found..."
   
+  
+if __name__ == "__main__":   
+  
+  print "Start ---"
+  print "Number of balls:", NUM_BALLS
+  print "Number of measurments:", NUM_MEASUREMENTS
+  
+  initialKnowledge = np.array([NUM_BALLS, 0, 0, 0], np.int8)
+  solutionFound, solution = measure(initialKnowledge)
+  
+  if solutionFound == 1:
+    print "\nSolution:"
+    print json.dumps(solution, indent=2)
+  else:
+    print "\nNo solution was found..."
+    
 
