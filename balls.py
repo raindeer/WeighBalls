@@ -25,8 +25,8 @@ where:
 
 The inital knowledge is [12, 0, 0, 0].
 
-The goal of the search is to end up with N = 11 and 1 in one of the other
-positions of the knowledge vector for all possible outcomes of the 3 measurements.
+The goal of the search is to end up with N = 11 and 1 in either the L or H
+position of the knowledge vector for all possible outcomes of the 3 measurements.
 
 When NUM_BALLS = 12 it takes a few minutes for a solution to be found.
 
@@ -102,7 +102,7 @@ def updateKnowledge(left, right, result, knowledge):
 def generateScaleSettings(knowledge):
   """ Generates all possible ball configurations given the knowledge we have.
   Note: Not sure this actually gives all possible combinations in all cases 
-  but seems to give enough of the them at least...
+  but seems to give enough of them at least...
   """
   
   if (knowledge.sum() != NUM_BALLS):

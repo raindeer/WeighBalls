@@ -1,5 +1,14 @@
 12 balls, 3 measurments
 
+Balls are represented by a vector: [LH, L, H, N],
+ 
+where:
+
+- LH is the number of balls that could either are light or heavy.
+- L is the number of balls that could be light but not heavy.
+- H is the number of balls that could be heavy but not light.
+- N is the number of balls known to be normal.
+
 Solution:
 {
   "knowledge": "[12, 0, 0, 0]", 
