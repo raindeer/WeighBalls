@@ -1,4 +1,4 @@
-# WeighBalls
+# Weigh 12 Balls with 3 attempts, which one has a different weight?
 
 A classic job interview question goes like this:
 ```
