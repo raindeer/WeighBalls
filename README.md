@@ -1,5 +1,4 @@
-# Weigh 12 Balls with 3 attempts, which one has a different weight?
-
+# Balance puzzle
 A classic job interview question goes like this:
 ```
 You're given 12 balls which all look the same. 
@@ -10,3 +9,5 @@ Only balls can be put on the scale cups.
 ```
 
 This is an implementation of a brute force solution of the above problem. It supports arbitrary number of balls and number of measurements.
+
+Wiki entry on the problem: https://en.wikipedia.org/wiki/Balance_puzzle
